@@ -1,0 +1,146 @@
+========================================================================
+             SCRIPT PRESENTASI UAS - PEMROGRAMAN WEB LANJUT
+         PENGEMBANGAN FITUR PROMO AKHIR TAHUN - TOKO PARFUM ONLINE
+                           HAFIZ WAHDANI
+                         NIM A11.2024.15983
+========================================================================
+
+Berikut adalah rangkuman seluruh script presentasi (speaking script) 
+yang dapat dibaca langsung saat melakukan presentasi/rekaman video demo.
+
+------------------------------------------------------------------------
+🎤 [1] SCRIPT PEMBUKA (~1 menit)
+------------------------------------------------------------------------
+"Assalamu'alaikum warahmatullahi wabarakatuh.
+Selamat pagi/siang Bapak/Ibu dosen dan rekan-rekan sekalian.
+Perkenalkan, saya Hafiz Wahdani, NIM A11.2024.15983.
+
+Pada kesempatan UAS kali ini saya mempresentasikan pengembangan fitur baru 
+pada proyek E-Commerce Toko Parfum berbasis CodeIgniter 4.
+Fokus pengembangan adalah Fitur Promo Akhir Tahun — mencakup biaya jasa otomatis,
+voucher diskon, hadiah free parfum bertingkat, form pengiriman, dan kurir flat-rate.
+Mari kita mulai."
+
+------------------------------------------------------------------------
+🎤 [2] SCRIPT BAGIAN 1 - FITUR LAMA YANG SUDAH BERJALAN (~1 menit)
+------------------------------------------------------------------------
+"Proyek ini sudah memiliki tujuh fitur dasar yang berfungsi penuh sebelum 
+pengembangan UAS. Mulai dari Login, Dashboard, Katalog Produk Parfum, 
+Keranjang Belanja, Checkout dasar, Riwayat Pesanan, hingga Database dengan relasi.
+
+Saya tidak mengubah atau merusak satu pun dari fitur lama ini.
+Semua penambahan saya lakukan secara additive — di atas fondasi yang sudah ada."
+
+------------------------------------------------------------------------
+🎤 [3] SCRIPT BAGIAN 2 - 5 FITUR BARU YANG DIKEMBANGKAN (~2 menit)
+------------------------------------------------------------------------
+"Ada 5 kelompok fitur utama yang saya tambahkan. Semuanya terintegrasi 
+dalam satu alur checkout yang mulus. Saya mengikuti pola MVC CodeIgniter 4 
+yang sudah ada — tidak ada routing baru, tidak ada struktur folder baru, 
+tidak ada library baru.
+
+Semua logika perhitungan promo saya pisahkan ke sebuah file Helper khusus
+agar bersih, bisa diuji, dan bisa digunakan ulang."
+
+------------------------------------------------------------------------
+🎤 [4] SCRIPT BIAYA JASA OTOMATIS (~1 menit)
+------------------------------------------------------------------------
+"Fitur pertama adalah biaya jasa yang dihitung otomatis dari total belanja.
+Jika total belanja tidak lebih dari Rp10 juta, biaya jasa adalah 1%.
+Jika melebihi Rp10 juta, naik menjadi 2%.
+
+Saya taruh logika ini di helper dengan fungsi 'hitung_biaya_jasa()' agar bisa 
+dipanggil dari controller manapun tanpa duplikasi kode."
+
+------------------------------------------------------------------------
+🎤 [5] SCRIPT SISTEM VOUCHER PROMO (~1 menit)
+------------------------------------------------------------------------
+"Fitur kedua adalah sistem voucher diskon dengan tiga kode yang tersedia.
+PROMO2025 diskon 10%, PROMO2026 diskon 15%, AKHIRTAHUN diskon 25%.
+Di halaman checkout, daftar voucher ditampilkan secara visual — pelanggan 
+bisa langsung klik, tidak perlu mengetik manual.
+
+Validasi tetap di backend menggunakan fungsi 'hitung_diskon_voucher()' 
+agar tidak bisa dimanipulasi. Kode voucher yang dipakai disimpan ke kolom 
+'voucher_code' di database."
+
+------------------------------------------------------------------------
+🎤 [6] SCRIPT HADIAH FREE PARFUM TIERED (~1.5 menit)
+------------------------------------------------------------------------
+"Fitur ketiga adalah hadiah free parfum dengan dua tingkatan.
+Belanja lebih dari Rp5 juta → dapat Free Parfum Lokal 30ml senilai Rp500.000.
+Belanja lebih dari Rp15 juta → dapat Free Parfum Eksklusif 30ml senilai Rp1.500.000.
+
+Di halaman checkout muncul banner dinamis menggunakan fungsi 'info_free_parfum()' 
+— jika belum memenuhi syarat, pelanggan didorong untuk belanja lebih. Jika sudah, 
+muncul ucapan selamat. Nilai hadiah otomatis dikurangkan dari grand total."
+
+------------------------------------------------------------------------
+🎤 [7] SCRIPT FORM PENGIRIMAN & KURIR FLAT-RATE (~1.5 menit)
+------------------------------------------------------------------------
+"Fitur keempat adalah form pengiriman yang saya sederhanakan.
+Hanya ada Nama Penerima, Nomor HP, Email, dan satu textarea Alamat Lengkap.
+Validasi dijalankan di backend — jika ada yang kosong, pelanggan dikembalikan 
+ke form dengan pesan error spesifik dan input sebelumnya tetap tersimpan.
+
+Fitur kelima adalah pilihan kurir flat-rate — saya mengganti integrasi API 
+RajaOngkir dengan enam kurir berharga tetap. Pelanggan tinggal klik kartu, 
+ongkir langsung masuk ke ringkasan tanpa loading, tanpa ketergantungan API."
+
+------------------------------------------------------------------------
+🎤 [8] SCRIPT FORMULA GRAND TOTAL (~1 menit)
+------------------------------------------------------------------------
+"Semua komponen promo digabungkan dalam satu formula:
+Grand Total = Subtotal + Ongkir + Biaya Jasa − Diskon Voucher − Free Parfum.
+
+Perhitungan ini ada di backend — method 'buat_pesanan()' di controller.
+JavaScript di frontend hanya untuk preview real-time, bukan sumber kebenaran.
+Meskipun JS dimatikan atau dimanipulasi, backend tetap menghitung dengan benar."
+
+------------------------------------------------------------------------
+🎤 [9] SCRIPT DEMO SIMULASI PERHITUNGAN (~2 menit)
+------------------------------------------------------------------------
+"Sekarang saya demonstrasikan tiga skenario nyata.
+Skenario A: belanja kecil Rp3 juta tanpa voucher.
+Skenario B: belanja Rp8 juta dengan voucher PROMO2026 — dapat diskon 15% 
+sekaligus free parfum lokal.
+Skenario C: belanja besar Rp18 juta dengan voucher AKHIRTAHUN 25% — dapat 
+free parfum eksklusif.
+
+Logika Python ini adalah mirror persis dari fungsi PHP di backend."
+
+------------------------------------------------------------------------
+🎤 [10] SCRIPT ARSITEKTUR MVC (~1.5 menit)
+------------------------------------------------------------------------
+"Secara teknis, saya mengikuti pola MVC yang sudah ada di project ini.
+Total 7 file yang dimodifikasi atau dibuat baru.
+Helper berisi logika bisnis murni — tidak ada akses database, tidak ada HTTP request.
+Controller memanggil helper, lalu menyimpan ke database via raw query.
+Model cukup mendaftarkan allowedFields yang baru.
+View menampilkan data dan memberikan feedback visual.
+Migration memastikan struktur database tersinkronisasi di semua environment."
+
+------------------------------------------------------------------------
+🎤 [11] SCRIPT PERUBAHAN DATABASE & MIGRATION (~1 menit)
+------------------------------------------------------------------------
+"Di sisi database, saya menambahkan 12 kolom baru ke tabel 'transaction'.
+Empat kolom promo: 'biaya_jasa', 'voucher_code', 'diskon_voucher', 'free_parfum'.
+Empat kolom pengiriman: 'nama_penerima', 'no_hp', 'email', 'catatan'.
+
+Semua kolom baru bersifat nullable — transaksi lama tetap bisa dibaca tanpa error.
+Migration ditulis idempotent: cek 'getFieldNames()' sebelum 'addColumn', 
+sehingga aman dijalankan berkali-kali di environment berbeda."
+
+------------------------------------------------------------------------
+🎤 [12] SCRIPT ALUR CHECKOUT END-TO-END (~1.5 menit)
+------------------------------------------------------------------------
+"Mari saya tunjukkan alur checkout secara end-to-end.
+Customer login → buka keranjang → masuk ke halaman checkout.
+Di sana, isi form pengiriman, pilih kurir dengan sekali klik, opsional pilih 
+atau ketik kode voucher — grand total langsung update di kanan layar.
+
+Saat Konfirmasi ditekan, backend memvalidasi semua field, menghitung ulang 
+promo secara independen, lalu menyimpan seluruh data ke database dalam satu 
+transaksi DB. Keranjang dikosongkan, customer diarahkan ke History untuk 
+melihat detail pesanan."
+========================================================================
